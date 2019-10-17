@@ -1,0 +1,58 @@
+<!doctype html>
+<html>
+<head>
+    <link href="css/base.css" rel="stylesheet">
+    <link href="css/style.css" rel="stylesheet">
+    <script src="js/baiduTemplate.js"></script>
+</head>
+<body>
+
+<article class="blogs">
+    <h2 class="title_tj">
+    <p>文章<span>推荐</span></p>
+  </h2>
+	<div class="newblog left">
+        <!--左left开始-->   
+        
+          <!--分页开始-->
+        <div class="page">
+              
+        </div>
+        <!--分页结束-->
+	</div>
+</article>
+<footer>
+    <p class="ft-copyright">个人博客 Sunshine </p>
+    <div id="tbox"> <a id="togbook" href=""></a> <a id="gotop" href="javascript:void(0)"></a></div>
+</footer>
+</body>
+<script src="https://code.jquery.com/jquery-3.1.1.min.js"></script>
+
+<script>
+    $(document).ready(function(){
+        $.get("http://localhost:8083/getDataList",function(data){
+            var dataList = JSON.parse(data);
+            for(var i=0;i<dataList.length;i++){
+                //console.log(dataList[i].chapterDes);
+                var liNode = "<div class='oneblog'>"+
+                                "<h2><a title="+dataList[i].chapterName+" href='/detail?chapterId="+dataList[i].chapterId+"'>"+dataList[i].chapterName+"</a></h2>"+
+                                "<figure><img src="+dataList[i].imgPath+" border='0' width='120' height='120' alt="+dataList[i].chapterName+"></figure>"+
+                                "<ul class='nlist'>"+
+                                    "<p>"+dataList[i].chapterDes+"</p>"+
+                                    "<a title="+dataList[i].chapterName+" href='/detail?chapterId="+dataList[i].chapterId+"' target='_blank' class='readmore'>阅读全文>></a>"+
+                                "</ul>"+
+                                "<p class='dateview'>"+
+                                    "<span>发布时间："+dataList[i].publishTimer+"</span>"+
+                                    "<span>作者："+dataList[i].author+"</span>"+
+                                    "<span>分类：[<a href='#'>悠客</a>]</span>"+
+                                    "<span class='nl'>浏览（"+dataList[i].views+")</span>"+
+                                    "<span class='n2'>评论：（<a href='#'>0</a>）</span>"+
+                                    "<div class='line'></div>"+
+                                "</p>"+
+                            "</div>";
+                $(".newblog").append(liNode);                   
+            }
+        })
+    })
+</script>
+</html>
